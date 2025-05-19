@@ -1,0 +1,20 @@
+# Unity-специфичные файлы
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# Файлы проекта
+*.csproj
+*.sln
+*.suo
+*.userprefs
+
+# Бинарные файлы
+*.unitypackage
+*.apk
+*.aab
+*.exe
