@@ -6,20 +6,20 @@ public class Portal : MonoBehaviour
 {
     [Header("Настройки сцены")]
     public string targetSceneName;
-    public Vector2 spawnPositionInNewScene = Vector2.zero; // Новая переменная для позиции
+    public Vector2 spawnPositionInNewScene = Vector2.zero; 
 
     [Header("UI")]
-    [SerializeField] private GameObject interactionUI;
-    [SerializeField] private TextMeshProUGUI interactionText;
+    public GameObject interactionUI;
+    public TextMeshProUGUI interactionText;
     public string interactionMessage = "Нажмите Пробел";
 
     private bool canInteract = false;
-    private GameObject player; // Ссылка на игрока
+    private GameObject player; 
 
     void Start()
     {
         InitializeUIElements();
-        player = GameObject.FindGameObjectWithTag("Player"); // Находим игрока при старте
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void InitializeUIElements()
@@ -57,8 +57,6 @@ public class Portal : MonoBehaviour
             Debug.LogError("Название сцены не указано!");
             return;
         }
-
-        // Сохраняем позицию для переноса в PlayerPrefs
         PlayerPrefs.SetFloat("SpawnPosX", spawnPositionInNewScene.x);
         PlayerPrefs.SetFloat("SpawnPosY", spawnPositionInNewScene.y);
         PlayerPrefs.Save();

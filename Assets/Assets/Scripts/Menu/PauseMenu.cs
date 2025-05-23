@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     [Header("Настройки")]
     public string mainMenuScene = "MainMenu";
+    public string HubScene = "Hub";
     public KeyCode pauseKey = KeyCode.Escape;
     
     [Header("UI")]
@@ -15,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     public Button resumeButton;
     public Button menuButton;
     public Button quitButton;
+    public Button HubButton;
 
     private bool isPaused = false;
 
@@ -23,6 +25,7 @@ public class PauseMenu : MonoBehaviour
         resumeButton.onClick.AddListener(ResumeGame);
         menuButton.onClick.AddListener(ReturnToMenu);
         quitButton.onClick.AddListener(QuitGame);
+        HubButton.onClick.AddListener(ReturnToHub);
         
         pauseMenuUI.SetActive(false);
     }
@@ -55,7 +58,13 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(mainMenuScene);
+        SceneManager.LoadScene(mainMenuScene); 
+        
+    }
+    public void ReturnToHub()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(HubScene);
     }
 
     public void QuitGame()

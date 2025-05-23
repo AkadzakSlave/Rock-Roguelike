@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Serialization;
 
 public class Health : MonoBehaviour
 {
@@ -34,6 +36,11 @@ public class Health : MonoBehaviour
     public string enemyType;
     [Header("Quest Settings")]
     [SerializeField] private string enemyID = "Enemy_Skeleton";
+    [Header("Экран смерти")]
+    public GameObject deathScreen; 
+    public Button ContButton;
+    public Button exitButton; 
+    public Vector2 spawnPositionInNewScene = Vector2.zero;
     
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -110,6 +117,10 @@ public class Health : MonoBehaviour
         {
             OnDeath?.Invoke();
             Die();
+        }
+        else
+        {
+            deathScreen.SetActive(false);
         }
     }
 
@@ -188,11 +199,29 @@ public class Health : MonoBehaviour
     private void HandlePlayerDeath()
     {
         Debug.Log("Игрок умер!");
-        // Дополнительная логика:
-        // Time.timeScale = 0f; // Пауза игры
-        // Показать экран смерти
+        
+        var playerController = GetComponent<PlayerController>();
+        if (playerController != null) playerController.enabled = false;
+
+        var rigidbody = GetComponent<Rigidbody2D>();
+        if (rigidbody != null) rigidbody.velocity = Vector2.zero;
+        
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ShowDeathScreen();
+        }
+        else
+        {
+            Debug.LogError("GameManager не найден!");
+            Invoke(nameof(ReloadLevel), 3f);
+        }
     }
 
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
     #if UNITY_EDITOR
     void OnValidate()
     {
