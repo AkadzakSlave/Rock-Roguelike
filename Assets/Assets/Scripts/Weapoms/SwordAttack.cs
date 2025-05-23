@@ -7,7 +7,7 @@ public class SwordAttack : MonoBehaviour
     [Header("Настройки")]
     public int damage = 15;
     public LayerMask enemyLayer;
-    public float damageCooldown = 0.2f; // Задержка между уронами
+    public float damageCooldown = 0.2f;
 
     [Header("Эффекты")]
     public AudioClip hitSound;
@@ -34,7 +34,6 @@ public class SwordAttack : MonoBehaviour
             PlayEffects(other.transform.position);
         }
     }
-
     void PlayEffects(Vector3 position)
     {
         if (hitEffect != null)

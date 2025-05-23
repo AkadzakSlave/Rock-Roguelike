@@ -9,12 +9,12 @@ public class QuestUI : MonoBehaviour
     public static QuestUI Instance;
 
     [Header("Основные элементы")]
-    [SerializeField] private GameObject _questPanel;
-    [SerializeField] private TextMeshProUGUI _titleText;
-    [SerializeField] private TextMeshProUGUI _descriptionText;
-    [SerializeField] private TextMeshProUGUI _progressText;
-    [SerializeField] private TextMeshProUGUI _statusText;
-    [SerializeField] private Button _closeButton;
+    public GameObject _questPanel;
+    public TextMeshProUGUI _titleText;
+    public TextMeshProUGUI _descriptionText;
+    public TextMeshProUGUI _progressText;
+    public TextMeshProUGUI _statusText;
+    public Button _closeButton;
 
     void Awake()
     {

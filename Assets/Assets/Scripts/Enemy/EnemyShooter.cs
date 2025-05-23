@@ -64,7 +64,6 @@ public class EnemyShooter : MonoBehaviour
         Vector2 direction = (_player.position - firePoint.position).normalized;
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
         
-        // Развернуть снаряд по направлению движения
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
     }

@@ -11,10 +11,10 @@ namespace Assets.Scripts.Menu
         public string firstLevelName = "Hub";
 
         [Header("Ссылки на UI")]
-        [SerializeField] private Button continueButton;
-        [SerializeField] private GameObject resetConfirmPanel;
-        [SerializeField] private GameObject loadingScreen;
-        [SerializeField] private Slider loadingProgressBar;
+        public Button continueButton;
+        public GameObject resetConfirmPanel;
+        public GameObject loadingScreen;
+        public Slider loadingProgressBar;
 
         void Start()
         {

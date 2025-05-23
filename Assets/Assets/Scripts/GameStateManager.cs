@@ -8,8 +8,7 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager Instance;
     
     [Header("Сохраненные данные")]
-    public Vector2 lastHubPosition; // Для возврата в хаб
-    public Vector2 nextSpawnPosition; // Для спавна в данже
+    public Vector2 nextSpawnPosition;
     public string currentQuestID;
 
     void Awake()
@@ -28,7 +27,6 @@ public class GameStateManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Автоматически перемещаем игрока при загрузке сцены
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {

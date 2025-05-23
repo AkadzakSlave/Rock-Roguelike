@@ -11,10 +11,10 @@ public class PauseMenu : MonoBehaviour
     public KeyCode pauseKey = KeyCode.Escape;
     
     [Header("UI")]
-    [SerializeField] private GameObject pauseMenuUI;
-    [SerializeField] private Button resumeButton;
-    [SerializeField] private Button menuButton;
-    [SerializeField] private Button quitButton;
+    public GameObject pauseMenuUI;
+    public Button resumeButton;
+    public Button menuButton;
+    public Button quitButton;
 
     private bool isPaused = false;
 

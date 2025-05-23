@@ -18,7 +18,7 @@ public class BossHealth : Health
         {
             QuestManager.Instance.UpdateQuestProgress(
                 QuestData.QuestType.DefeatBoss, 
-                bossID); // Передаём ID босса
+                bossID);
         }
         else
         {

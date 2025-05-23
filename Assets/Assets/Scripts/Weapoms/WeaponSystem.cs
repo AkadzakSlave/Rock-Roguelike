@@ -62,8 +62,6 @@ public class WeaponSystem : MonoBehaviour
         float cooldownLeft = _lastSwitchTime + switchCooldown - Time.time;
         float fillValue = 1f - Mathf.Clamp01(cooldownLeft / switchCooldown);
         cooldownRadial.fillAmount = fillValue;
-
-        // Опционально: скрывать шкалу, когда кулдаун закончен
         cooldownRadial.enabled = (fillValue > 0 && fillValue < 1);
     }
 

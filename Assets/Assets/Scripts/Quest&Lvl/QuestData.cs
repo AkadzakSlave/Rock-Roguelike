@@ -8,7 +8,7 @@ public class QuestData : ScriptableObject
     public enum QuestType { KillEnemies, DefeatBoss, CompleteRooms }
 
     [Header("Основные настройки")]
-    [SerializeField] private string _questID;
+    public string _questID;
     public string questID => _questID;
     public string title;
     [TextArea] public string description;
@@ -16,8 +16,8 @@ public class QuestData : ScriptableObject
 
     [Header("Цели")]
     public int targetCount = 1;
-    public string targetEnemyID; // Для KillEnemies
-    public string bossID; // Для DefeatBoss (переименовано из bossName)
+    public string targetEnemyID;
+    public string bossID;
 
     [Header("Награды")]
     public int expReward;

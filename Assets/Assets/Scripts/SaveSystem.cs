@@ -13,7 +13,6 @@ public static class SaveSystem
         public int accountLevel;
         public int accountXP;
         public int currentSceneIndex;
-        // Добавьте другие данные
     }
 
     public static void Save(SaveData data)

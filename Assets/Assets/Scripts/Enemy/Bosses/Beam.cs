@@ -25,8 +25,7 @@ public class Beam : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         beamCollider = GetComponent<BoxCollider2D>();
         currentLength = 0f;
-
-        // Автоматически находим игрока если не назначен
+        
         if(playerTarget == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -37,11 +36,9 @@ public class Beam : MonoBehaviour
     void Update()
     {
         if(playerTarget == null) return;
-
-        // Поворот в сторону игрока
+        
         RotateTowardsPlayer();
         
-        // Расширение луча
         if(currentLength < maxLength)
         {
             currentLength = Mathf.Min(maxLength, currentLength + expandSpeed * Time.deltaTime);
@@ -63,22 +60,17 @@ public class Beam : MonoBehaviour
 
     void UpdateBeamSize()
     {
-        // Обновляем спрайт
         spriteRenderer.size = new Vector2(spriteRenderer.size.x, currentLength);
-        
-        // Обновляем коллайдер
         beamCollider.size = new Vector2(beamCollider.size.x, currentLength);
         beamCollider.offset = new Vector2(0, currentLength / 2f);
     }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        // Проверяем слой игрока
         if(((1 << other.gameObject.layer) & playerLayer) != 0)
         {
             if(other.TryGetComponent(out Health health))
             {
-                // Накопленный урон
                 accumulatedDamage += damagePerSecond * Time.deltaTime;
                 
                 if(accumulatedDamage >= 1f)
@@ -90,8 +82,7 @@ public class Beam : MonoBehaviour
             }
         }
     }
-
-    // Визуализация в редакторе
+    
     void OnDrawGizmosSelected()
     {
         if(playerTarget != null)

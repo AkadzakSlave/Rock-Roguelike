@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
             other.GetComponent<Health>().TakeDamage(damage);
             DestroyProjectile();
         }
-        else if (!other.isTrigger) // Игнорируем триггеры
+        else if (!other.isTrigger)
         {
             DestroyProjectile();
         }

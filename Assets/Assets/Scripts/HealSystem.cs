@@ -6,17 +6,17 @@ using UnityEngine.UI;
 public class HealSystem : MonoBehaviour
 {
     [Header("Настройки лечения")]
-    [SerializeField] private KeyCode healKey = KeyCode.E;
-    [SerializeField] [Range(0, 100)] private float healPercent = 30f;
-    [SerializeField] private float cooldown = 10f;
-    [SerializeField] private Color healColor = new Color(0.2f, 1f, 0.2f);
-    [SerializeField] private float flashDuration = 0.5f;
+    public KeyCode healKey = KeyCode.E;
+    [Range(0, 100)] private float healPercent = 30f;
+    public float cooldown = 10f;
+    public Color healColor = new Color(0.2f, 1f, 0.2f);
+    public float flashDuration = 0.5f;
 
     [Header("Визуальные элементы")]
-    [SerializeField] private Image cooldownRadial; // Image с Radial Fill
-    [SerializeField] private GameObject cooldownUI; 
-    [SerializeField] private AudioClip healSound;
-    [SerializeField] private ParticleSystem healVFX;
+    public Image cooldownRadial;
+    public GameObject cooldownUI; 
+    public AudioClip healSound;
+    public ParticleSystem healVFX;
 
     private Health _health;
     private SpriteRenderer _spriteRenderer;
@@ -48,8 +48,7 @@ public class HealSystem : MonoBehaviour
     {
         int healAmount = Mathf.RoundToInt(_health.maxHealth * (healPercent / 100f));
         _health.Heal(healAmount);
-
-        // Визуальные эффекты
+        
         FlashCharacter();
         PlayHealSound();
         PlayVFX();

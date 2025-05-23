@@ -13,7 +13,7 @@ public class QuestManager : MonoBehaviour
     
     
     [Header("Настройки")]
-    [SerializeField] private List<QuestData> _allQuests = new List<QuestData>();
+    public List<QuestData> _allQuests = new List<QuestData>();
     
     
     public Quest CurrentQuest { get; private set; }
@@ -30,28 +30,6 @@ public class QuestManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
-        Debug.Log("QuestManager initialized");
-    }
-
-    void InitializeCurrentQuest()
-    {
-        if (GameStateManager.Instance == null || string.IsNullOrEmpty(GameStateManager.Instance.currentQuestID))
-        {
-            Debug.Log("No saved quest found");
-            return;
-        }
-
-        QuestData data = _allQuests.Find(q => q.questID == GameStateManager.Instance.currentQuestID);
-        if (data != null) 
-        {
-            CurrentQuest = new Quest(data);
-            Debug.Log($"Loaded quest: {data.title}");
-            UpdateQuestUI();
-        }
-        else
-        {
-            Debug.LogWarning($"Quest data not found for ID: {GameStateManager.Instance.currentQuestID}");
-        }
     }
 
     void CleanDuplicateEventSystems()
@@ -68,26 +46,12 @@ public class QuestManager : MonoBehaviour
     
     public void AcceptQuest(QuestData questData)
     {
-        if (questData == null)
-        {
-            Debug.LogError("Trying to accept null quest!");
-            return;
-        }
-
-        if (CurrentQuest != null && !CurrentQuest.isCompleted)
-        {
-            Debug.LogWarning("Cannot accept new quest while current is active!");
-            return;
-        }
-
         CurrentQuest = new Quest(questData);
         
         if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.currentQuestID = questData.questID;
         }
-
-        Debug.Log($"Accepted new quest: {questData.title}");
         UpdateQuestUI();
         OnQuestUpdated?.Invoke(CurrentQuest);
         PlayerPrefs.SetString("CurrentQuestID", questData.questID);
@@ -117,24 +81,6 @@ public class QuestManager : MonoBehaviour
     
     public void UpdateQuestProgress(QuestData.QuestType type, string targetID)
     {
-        if (CurrentQuest == null)
-        {
-            Debug.Log("No active quest to update");
-            return;
-        }
-
-        if (CurrentQuest.isCompleted)
-        {
-            Debug.Log("Quest already completed");
-            return;
-        }
-
-        if (CurrentQuest.data.type != type)
-        {
-            Debug.Log($"Quest type mismatch. Expected {CurrentQuest.data.type}, got {type}");
-            return;
-        }
-
         bool progressUpdated = false;
         string debugMessage = $"Checking quest: {CurrentQuest.data.title}, Type={type}, TargetID={targetID}";
 
@@ -164,8 +110,6 @@ public class QuestManager : MonoBehaviour
                 debugMessage += $"\nCompleted room";
                 break;
         }
-
-        Debug.Log(debugMessage);
 
         if (progressUpdated)
         {

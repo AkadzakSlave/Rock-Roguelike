@@ -10,7 +10,7 @@ public class EnemyAi : MonoBehaviour
     public float detectionRange = 5f;
     public float attackRange = 1.5f;
     public LayerMask playerLayer;
-    public LayerMask wallLayer; // Новый слой для стен
+    public LayerMask wallLayer;
 
     [Header("Behavior Settings")]
     public float returnDelay = 2f;
@@ -25,13 +25,13 @@ public class EnemyAi : MonoBehaviour
     private float lastAttackTime;
     private Vector2 originPosition; 
     private bool isReturning;
-    private float lostPlayerTime; // Время потери игрока
+    private float lostPlayerTime;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
-        originPosition = transform.position; // Запоминаем стартовую позицию
+        originPosition = transform.position;
 
         rb.gravityScale = 0;
         rb.freezeRotation = true;
@@ -42,15 +42,13 @@ public class EnemyAi : MonoBehaviour
         if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
-
-        // Если игрок в зоне обнаружения
+        
         if (distance < detectionRange)
         {
-            lostPlayerTime = Time.time; // Сбрасываем таймер
+            lostPlayerTime = Time.time;
             isReturning = false;
             MoveTowardsPlayer(distance);
         }
-        // Если игрок потерян и прошло время задержки
         else if (Time.time > lostPlayerTime + returnDelay)
         {
             ReturnToOrigin();
@@ -61,7 +59,6 @@ public class EnemyAi : MonoBehaviour
     {
         Vector2 direction = (player.position - transform.position).normalized;
         
-        // Проверка на коллизию со стенами
         if (!Physics2D.Raycast(transform.position, direction, 0.5f, wallLayer))
         {
             if (distance > attackRange)
@@ -89,10 +86,9 @@ public class EnemyAi : MonoBehaviour
         {
             Vector2 direction = (originPosition - (Vector2)transform.position).normalized;
             
-            // Проверка пути к исходной позиции
             if (!Physics2D.Raycast(transform.position, direction, 0.5f, wallLayer))
             {
-                rb.velocity = direction * moveSpeed * 0.7f; // Медленнее при возврате
+                rb.velocity = direction * moveSpeed * 0.7f;
             }
             else
             {
@@ -110,7 +106,6 @@ public class EnemyAi : MonoBehaviour
     {
         if (Time.time > lastAttackTime + attackCooldown)
         {
-            // Проверяем наличие компонента Health
             if (player.TryGetComponent(out Health health))
             {
                 health.TakeDamage(damage);
@@ -130,7 +125,6 @@ public class EnemyAi : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Останавливаем врага при столкновении со стеной
         if (((1 << collision.gameObject.layer) & wallLayer) != 0)
         {
             rb.velocity = Vector2.zero;

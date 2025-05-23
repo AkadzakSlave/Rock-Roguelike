@@ -113,12 +113,10 @@ public class QuestNPC : MonoBehaviour
 
     public void ResetAllProgress()
     {
-        // Сбрасываем все сохраненные данные
         PlayerPrefs.DeleteKey(gameObject.name + "_completed");
         PlayerPrefs.DeleteKey(gameObject.name + "_index");
         PlayerPrefs.DeleteKey(gameObject.name + "_completedFlag");
-    
-        // Сбрасываем текущие значения
+        
         _completedQuestsCount = 0;
         _currentQuestIndex = 0;
         _allQuestsCompleted = false;

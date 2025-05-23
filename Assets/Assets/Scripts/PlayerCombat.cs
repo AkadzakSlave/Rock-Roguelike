@@ -26,24 +26,16 @@ public class PlayerCombat : MonoBehaviour
     
     void Attack()
     {
-        // Анимация атаки
-        // PlayAnimation("Attack");
-        
-        // Обнаружение врагов в радиусе
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(
             attackPoint.position, 
             attackRange, 
             enemyLayer
         );
-        
-        // Нанесение урона
         foreach (Collider2D enemy in hitEnemies)
         {
             enemy.GetComponent<Health>()?.TakeDamage(damage);
         }
     }
-    
-    // Визуализация радиуса атаки в редакторе
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;

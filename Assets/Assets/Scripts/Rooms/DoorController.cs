@@ -20,7 +20,6 @@ public class DoorController : MonoBehaviour
 
     void Start()
     {
-        // Инициализация позиций
         _closedPosition = doorTransform.position;
         _openPosition = _closedPosition + Vector3.up * moveDistance;
         
@@ -66,7 +65,6 @@ public class DoorController : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
             
-            // Остановка при достижении цели
             if (Vector3.Distance(doorTransform.position, _targetPosition) < 0.01f)
             {
                 _isMoving = false;

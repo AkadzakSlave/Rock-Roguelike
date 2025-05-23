@@ -71,7 +71,6 @@ public class TrialRoomController : MonoBehaviour
         {
             boss.gameObject.SetActive(true);
             ToggleBossUI(true);
-                //boss.ResetBoss(); 
         }
         
         foreach(var enemy in roomEnemies)

@@ -28,7 +28,6 @@ public class Aim : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0) && Time.time > nextAttackTime)
         {
-            //Attack();
             nextAttackTime = Time.time + attackCooldown;
         }
     }
@@ -42,19 +41,10 @@ public class Aim : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle + rotationOffset);
         transform.position = player.position + (Vector3)(direction * distanceFromPlayer);
     }
-
-    void Attack()
-    {
-        //anim.SetTrigger("Attack");
-    }
-
-    // Вызывается из анимации
     public void EnableDamage()
     {
         GetComponent<Collider2D>().enabled = true;
     }
-
-    // Вызывается из анимации
     public void DisableDamage()
     {
         GetComponent<Collider2D>().enabled = false;
